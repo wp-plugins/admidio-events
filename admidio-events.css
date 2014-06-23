@@ -1,0 +1,59 @@
+/**
+ * Plugin Name: Admidio Events
+ * Plugin URI:  http://fechten-in-waldkirch.de/
+ * Description: A widget that displays dates from Admidio's dates module via RSS.
+ * Version:     0.3.2
+ * Author:      Ulrik Schoth
+ * Author URI:  http://fechten-in-waldkirch.de/kontakt/webmaster/
+ * 
+ * Module:      admidio-events.css
+ * Description: Support for handling of expanded and collapsed view.
+ * 
+ * Copyright (C) 2014 Ulrik Schoth
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */
+
+.admidio-events .widget-title {
+	cursor: pointer;
+}
+
+.admidio-events .widget-title .icon{
+	font: 24px Genericons;
+	color: #141412;
+	float: right;
+}
+.admidio-events .widget-title .icon-expand:after{
+	content: "\f431";
+}
+.admidio-events .widget-title .icon-collapse:after{
+	content: "\f432";
+}
+
+.admidio-events-date {
+	color: #686758;
+	margin-left: 5px;
+}
+ 
+ .admidio-events p {
+    margin-bottom: 0px;
+}
+
+.admidio-events-title-strong {
+    font-weight: bold;
+}
+
+.admidio-events-description {
+    display:none;
+}
