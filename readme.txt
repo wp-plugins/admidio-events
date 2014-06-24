@@ -2,9 +2,9 @@
 Contributors: fiwad
 Donate link: http://fechten-in-waldkirch.de/
 Tags: admidio, date, events, rss, widget
-Requires at least: 3.6
+Requires at least: 3.0.1
 Tested up to: 3.9.1
-Stable tag: 0.3.3
+Stable tag: 0.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,9 +14,8 @@ A widget that displays event data from the online membership management system <
 
 [Admidio](http://sourceforge.net/projects/admidio/ "Admidio at SourceForge") is a free PHP based membership management system for organizations and groups. It also offers an event manager module to plan date, time and place of events.
 
-**Admidio Events** displays such event data in the widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events can be configured. Also the widget offers a collapsed (event name, date) or expanded (all event data) view. The data from Admidio to WordPress is transferred via RSS.
+**Admidio Events** displays such event data in the widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events can be configured. Also the widget offers a collapsed (event name, date) or expanded (all event data) view. The data between Admidio and WordPress is transferred via RSS.
 
-The font *Genericons* has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (e. g. <a href="http://wordpress.org/themes/twentythirteen/">Twenty Thirteen</a> or <a href="http://wordpress.org/themes/twentyfourteen/">Twenty Fourteen</a>) or by using a Plugin that adds *Genericon* to your theme (e. g. <a href="http://wordpress.org/plugins/genericond/">Genericon'd</a>).
 == Installation ==
 
 Quick and easy installation:
@@ -41,7 +40,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 0.3.2 =
+= 1.0 =
 * First version hosted by WordPress.
 
 == Upgrade Notice ==

@@ -4,7 +4,7 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
- * Version:     0.3.3
+ * Version:     0.3.2
  * Author:      Ulrik Schoth
  * Author URI:  http://fechten-in-waldkirch.de/kontakt/webmaster/
  * Text Domain: admidio-events
@@ -36,12 +36,13 @@
  * 
  * @since 0.3.1
  * 
+ * @todo Verbesserte Darstellung der Icons zum Umschalten der Views.
  * @todo Zusätzliche Widget-Option: Start mit Expand-View.
  * @todo Direkte Übernahme der HTML-Tags von Admidio unterbinden (Security!).
  * @todo Weshalb wird die Beschreibung beim Admidio-Test-Server nicht sauber getrennt?
+ * @todo Einstellen ins Plugin-Verzeichnis bei WordPress.
  * @todo Fehler im Setzen der Feed-Cache-Time? Zeit erscheint viel zu kurz.
  * @todo Beispiel-RSS-URL entfernen (und lieber in Installationsanleitung darauf verweisen).
- * @todo README.TXT fertigstellen.
  */
 class Admidio_Events_Widget extends WP_Widget {
 
@@ -181,7 +182,7 @@ class Admidio_Events_Widget extends WP_Widget {
 
 		// Display the widget title if one was input (before and after defined by themes).
 		if ( $title ) {
-			echo $before_title . '<div class="text">' . $title . '</div><div class="icon icon-expand"></div>' . $after_title;
+			echo $before_title . $title . '<span class="icon icon-expand"></span>' . $after_title;
 		}
 
 		// Get RSS data and handle result.
