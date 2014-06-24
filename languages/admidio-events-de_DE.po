@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Admidio Events v0.3.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-06-22 14:09:16+0000\n"
+"PO-Revision-Date: 2014-06-24 04:57:12+0000\n"
 "Last-Translator: Ulrik Schoth<webmaster@fechten-in-waldkirch.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "Veranstaltungsdaten von Admidio."
 #: admidio-events.php:103
 #@ admidio-events
 msgid "Upcoming Events"
-msgstr "Kommende Veranstaltungen"
+msgstr "Terminvorschau"
 
 #: admidio-events.php:112
 #@ admidio-events
