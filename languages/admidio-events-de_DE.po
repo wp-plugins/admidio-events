@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Admidio Events v0.3.1\n"
+"Project-Id-Version: Admidio Events v0.3.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-06-22 14:09:16+0000\n"
+"PO-Revision-Date: 2014-06-24 18:27:48+0000\n"
 "Last-Translator: Ulrik Schoth<webmaster@fechten-in-waldkirch.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,12 +50,6 @@ msgstr ""
 msgid "http://fechten-in-waldkirch.de/kontakt/webmaster/"
 msgstr ""
 
-#. translators: plugin header field 'Version'
-#: admidio-events.php:0
-#@ admidio-events
-msgid "0.3.1"
-msgstr ""
-
 #: admidio-events.php:63
 #@ admidio-events
 msgid "Event data from Admidio."
@@ -64,35 +58,46 @@ msgstr "Veranstaltungsdaten von Admidio."
 #: admidio-events.php:103
 #@ admidio-events
 msgid "Upcoming Events"
-msgstr "Kommende Veranstaltungen"
+msgstr "Terminvorschau"
 
-#: admidio-events.php:112
+#: admidio-events.php:113
 #@ admidio-events
 msgid "Title:"
 msgstr "Titel:"
 
-#: admidio-events.php:116
+#: admidio-events.php:117
 #@ admidio-events
 msgid "Enter the event RSS feed URL here:"
 msgstr "URL des Admidio-RSS-Feeds für Veranstaltungen:"
 
-#: admidio-events.php:120
+#: admidio-events.php:121
 #@ admidio-events
 msgid "How many events would you like to display?"
 msgstr "Wie viele Veranstaltungen sollen angezeigt werden?"
 
-#: admidio-events.php:131
+#: admidio-events.php:132
 #@ admidio-events
 msgid "Display event date in collapsed view?"
 msgstr "Veranstaltungsdatum in eingeklappter Ansicht anzeigen?"
 
-#: admidio-events.php:192
+#: admidio-events.php:209
 #@ admidio-events
 msgid "Error when fetching event data."
 msgstr "Fehler beim Abrufen der Veranstaltungsdaten."
 
-#: admidio-events.php:195
+#: admidio-events.php:212
 #@ admidio-events
 msgid "No event data available."
 msgstr "Keine Veranstaltungsdaten vorhanden."
+
+#. translators: plugin header field 'Version'
+#: admidio-events.php:0
+#@ admidio-events
+msgid "0.3.4"
+msgstr ""
+
+#: admidio-events.php:136
+#@ admidio-events
+msgid "Start with expanded view?"
+msgstr "Mit erweiterter Ansicht starten?"
 

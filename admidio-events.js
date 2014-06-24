@@ -1,8 +1,8 @@
 /**
  * Plugin Name: Admidio Events
  * Plugin URI:  http://fechten-in-waldkirch.de/
- * Description: A widget that displays dates from Admidio's dates module via RSS.
- * Version:     0.3.2
+ * Description: A widget that displays event data from the online membership management system Admidio.
+ * Version:     0.3.4
  * Author:      Ulrik Schoth
  * Author URI:  http://fechten-in-waldkirch.de/kontakt/webmaster/
  *
@@ -26,22 +26,22 @@
  */
 
 /**
- * Clicking in headline of widget toggles visibility of corresponding descriptions.
+ * Clicking on expand/collapse icon toggles visibility of descriptions.
  * @since 0.3.1
  */
-jQuery( '.admidio-events .widget-title' ).click( function() {
+jQuery( '.admidio-events .widget-title .icon' ).click( function() {
 
-	var myWidgetInstance = jQuery( this ).parent();
+	var myWidgetInstance = jQuery( this ).parent().parent();
 	
 	// Update title formatting and icon.
 	if ( myWidgetInstance.find( '.admidio-events-description' ).is( ':hidden' ) ) {
 	
-		myWidgetInstance.find( '.admidio-events-title' ).addClass( 'admidio-events-title-strong' );
+		myWidgetInstance.find( '.event-title' ).addClass( 'event-title-strong' );
 		myWidgetInstance.find( '.icon' ).removeClass( 'icon-expand' ).addClass( 'icon-collapse' );
 		
 	} else {
 	
-		myWidgetInstance.find( '.admidio-events-title' ).removeClass( 'admidio-events-title-strong' );
+		myWidgetInstance.find( '.event-title' ).removeClass( 'event-title-strong' );
 		myWidgetInstance.find( '.icon' ).addClass( 'icon-expand' ).removeClass( 'icon-collapse' );
 		
 	};

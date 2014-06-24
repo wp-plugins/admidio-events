@@ -4,7 +4,7 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
- * Version:     0.3.2
+ * Version:     0.3.4
  * Author:      Ulrik Schoth
  * Author URI:  http://fechten-in-waldkirch.de/kontakt/webmaster/
  * Text Domain: admidio-events
@@ -36,13 +36,13 @@
  * 
  * @since 0.3.1
  * 
- * @todo Verbesserte Darstellung der Icons zum Umschalten der Views.
- * @todo Zusätzliche Widget-Option: Start mit Expand-View.
- * @todo Direkte Übernahme der HTML-Tags von Admidio unterbinden (Security!).
- * @todo Weshalb wird die Beschreibung beim Admidio-Test-Server nicht sauber getrennt?
- * @todo Einstellen ins Plugin-Verzeichnis bei WordPress.
- * @todo Fehler im Setzen der Feed-Cache-Time? Zeit erscheint viel zu kurz.
- * @todo Beispiel-RSS-URL entfernen (und lieber in Installationsanleitung darauf verweisen).
+ * @todo Prohibit direct import of html tags (security issue!).
+ * @todo Examine differences of Admidio test server info.
+ * @todo Error when setting feed cache time? Seems to be too short...
+ * @todo Remove RSS feed url to Admidio test server. Instead add example in readme.txt.
+ * @todo Add banner und screen shots for folder "assets".
+ * @todo Create author page in English.
+ * @todo Finish readme.txt.
  */
 class Admidio_Events_Widget extends WP_Widget {
 
@@ -59,11 +59,11 @@ class Admidio_Events_Widget extends WP_Widget {
 			'Admidio Events', // Name used on widget configuration page.
 			array(
 				'classname' => 'admidio-events', // Class name for CSS.
-				'description' => __( 'Event data from Admidio.', 'admidio-events' ) // Description used on widget configuration page.
+				'description' => __( 'Event data from Admidio.', 'admidio-events' ), // Description used on widget configuration page.
 			),
 			array(
 				'width' => 400,
-				'height' => 200
+				'height' => 200,
 			)
 		);
 		// Register style sheet and scripts.
@@ -99,10 +99,11 @@ class Admidio_Events_Widget extends WP_Widget {
 
 		// Set up default widget settings.
 		$defaults = array(
-			'title' => __( 'Upcoming Events', 'admidio-events' ),
-			'rss_feed' => 'http://demo.admidio.org/adm_program/modules/dates/rss_dates.php',
-			'no_of_items' => '5',
-			'show_date' => '0',
+			'title'          => __( 'Upcoming Events', 'admidio-events' ),
+			'rss_feed'       => 'http://demo.admidio.org/adm_program/modules/dates/rss_dates.php',
+			'no_of_items'    => '5',
+			'show_date'      => '0',
+			'start_expanded' => '0',
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
@@ -129,6 +130,10 @@ class Admidio_Events_Widget extends WP_Widget {
 			<input id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['show_date'] ); ?> />
 			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display event date in collapsed view?', 'admidio-events' ); ?></label>
 		</p>
+		<p>
+			<input id="<?php echo $this->get_field_id( 'start_expanded' ); ?>" name="<?php echo $this->get_field_name( 'start_expanded' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['start_expanded'] ); ?> />
+			<label for="<?php echo $this->get_field_id( 'start_expanded' ); ?>"><?php _e( 'Start with expanded view?', 'admidio-events' ); ?></label>
+		</p>
 		
 		<?php
 	}
@@ -151,10 +156,11 @@ class Admidio_Events_Widget extends WP_Widget {
 		$instance = $old_instance;
 
 		// Strip tags for title and rss feed to remove HTML (important for text inputs).
-		$instance['title']       = strip_tags( $new_instance['title'] );
-		$instance['rss_feed']    = strip_tags( $new_instance['rss_feed'] );
-		$instance['no_of_items'] = strip_tags( $new_instance['no_of_items'] );
-		$instance['show_date']   = strip_tags( $new_instance['show_date'] );
+		$instance['title']           = strip_tags( $new_instance['title'] );
+		$instance['rss_feed']        = strip_tags( $new_instance['rss_feed'] );
+		$instance['no_of_items']     = strip_tags( $new_instance['no_of_items'] );
+		$instance['show_date']       = strip_tags( $new_instance['show_date'] );
+		$instance['start_expanded']  = strip_tags( $new_instance['start_expanded'] );
 
 		return $instance;
 	}
@@ -175,15 +181,26 @@ class Admidio_Events_Widget extends WP_Widget {
 		$rss_feed = $instance['rss_feed'];
 		$no_of_items = $instance['no_of_items'];
 		$show_date = $instance['show_date'];
+		$start_expanded = $instance['start_expanded'];
 
+
+		if ($start_expanded) {
+			$init_status_description = 'style="display: block;"';
+			$init_icon = 'icon-collapse';
+			$init_status_event_title = 'event-title-strong';
+		} else {
+			$init_status_description = 'style="display: none;"';
+			$init_icon = 'icon-expand';
+			$init_status_event_title = '';
+		}
+			
+		
 		// Before widget (defined by themes).
 		extract( $args ); // Separate array $args into $before_widget, $before_title, etc.
 		echo $before_widget;
 
-		// Display the widget title if one was input (before and after defined by themes).
-		if ( $title ) {
-			echo $before_title . $title . '<span class="icon icon-expand"></span>' . $after_title;
-		}
+		// Display the widget title (before and after defined by themes).
+		echo $before_title . '<div class="text">' . $title . '</div><div class="icon ' . $init_icon . '"></div>' . $after_title;
 
 		// Get RSS data and handle result.
 		$rss_items = $this->get_rss_feed_data( $rss_feed, 20 );
@@ -204,17 +221,21 @@ class Admidio_Events_Widget extends WP_Widget {
 		$items_counter = 1;
 		echo "<ul>";
 		foreach ( $admidio_data as $value ) {
-			echo '<li><span class="admidio-events-title">' . $value['title'] . '</span>';
+			echo '<li><span class="event-title ' . $init_status_event_title . '">' . $value['title'] . '</span>';
 			if ( $show_date ) {
-				echo '<span class="admidio-events-date">' . $value['start_date'] . '</span>';
+				echo '<span class="event-date">' . $value['start_date'] . '</span>';
 			}
 			
-			echo '<div class="admidio-events-description">' . $value['date_time_place'];
+			echo '<div class="admidio-events-description" ' . $init_status_description . '>';
+			
+			echo $value['date_time_place'];
+			
 			if ( !empty( $value['desc'] ) ) {
 				echo $value['desc'];
 			} else {
 				echo '<p></p>';
 			}
+			
 			echo '</div>';
 
 			echo '</li>';
