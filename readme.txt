@@ -1,6 +1,6 @@
 === Admidio Events ===
 Contributors: fiwad
-Donate link: http://fechten-in-waldkirch.de/
+Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster/
 Tags: admidio, date, events, rss, widget
 Requires at least: 3.6
 Tested up to: 3.9.1
@@ -14,9 +14,9 @@ A widget that displays event data from the online membership management system <
 
 [Admidio](http://sourceforge.net/projects/admidio/ "Admidio at SourceForge") is a free PHP based membership management system for organizations and groups. It also offers an event manager module to plan date, time and place of events.
 
-**Admidio Events** displays such event data in the widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events can be configured. Also the widget offers a collapsed (event name, date) or expanded (all event data) view. The data from Admidio to WordPress is transferred via RSS.
+**Admidio Events** displays such event data in the widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events shown is configurable. Also the widget offers a collapsed (event name, optional: date) or expanded (all event data) view. The data from Admidio to WordPress is transferred via RSS.
 
-The font *Genericons* has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (e. g. <a href="http://wordpress.org/themes/twentythirteen/">Twenty Thirteen</a> or <a href="http://wordpress.org/themes/twentyfourteen/">Twenty Fourteen</a>) or by using a Plugin that adds *Genericons* to your theme (e. g. <a href="http://wordpress.org/plugins/genericond/">Genericon'd</a>).
+Please note that the font *Genericons* has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (e. g. <a href="http://wordpress.org/themes/twentythirteen/">Twenty Thirteen</a> or <a href="http://wordpress.org/themes/twentyfourteen/">Twenty Fourteen</a>) or by using a Plugin that adds *Genericons* to your theme (e. g. <a href="http://wordpress.org/plugins/genericond/">Genericon'd</a>).
 == Installation ==
 
 Quick and easy installation:
@@ -24,6 +24,7 @@ Quick and easy installation:
 1. Upload the folder `admidio-events` and all sub-folders to the `/wp-content/plugins/` directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 1. Done.
+1. Example RSS feed URL: `http://demo.admidio.org/adm_program/modules/dates/rss_dates.php`.
 
 == Screenshots ==
 
@@ -41,8 +42,14 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 0.3.5 =
+* Added banner for Plugin Directory.
+* Deleted default RSS feed URL and added it to installation instructions.
+* Improved switching between collapsed and expanded view on devices with small screen: Now the whole widget title can be clicked.
+* Restricted usable html tags in description to break tag.
+
 = 0.3.4 =
-* 
+* Added widget option for initial view. 
 
 = 0.3.3 =
 * Improved expanded/collapsed view button.

@@ -4,7 +4,7 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
- * Version:     0.3.4
+ * Version:     0.3.5
  * Author:      Ulrik Schoth
  * Author URI:  http://fechten-in-waldkirch.de/kontakt/webmaster/
  * Text Domain: admidio-events
@@ -36,13 +36,8 @@
  * 
  * @since 0.3.1
  * 
- * @todo Prohibit direct import of html tags (security issue!).
- * @todo Examine differences of Admidio test server info.
  * @todo Error when setting feed cache time? Seems to be too short...
- * @todo Remove RSS feed url to Admidio test server. Instead add example in readme.txt.
- * @todo Add banner und screen shots for folder "assets".
- * @todo Create author page in English.
- * @todo Finish readme.txt.
+ * @todo Add screen shots for folder "assets" and finish readme.txt.
  */
 class Admidio_Events_Widget extends WP_Widget {
 
@@ -100,7 +95,7 @@ class Admidio_Events_Widget extends WP_Widget {
 		// Set up default widget settings.
 		$defaults = array(
 			'title'          => __( 'Upcoming Events', 'admidio-events' ),
-			'rss_feed'       => 'http://demo.admidio.org/adm_program/modules/dates/rss_dates.php',
+			'rss_feed'       => '',
 			'no_of_items'    => '5',
 			'show_date'      => '0',
 			'start_expanded' => '0',
@@ -205,47 +200,40 @@ class Admidio_Events_Widget extends WP_Widget {
 		// Get RSS data and handle result.
 		$rss_items = $this->get_rss_feed_data( $rss_feed, 20 );
 		if ( $rss_items === false ) {
+
 			_e( 'Error when fetching event data.', 'admidio-events' );
-			return;
+
 		} elseif ( empty( $rss_items ) ) {
+
 			_e( 'No event data available.', 'admidio-events' );
-			return;
+
+		} else {
+
+			// Extract Admidio data from RSS items.
+			$admidio_data = $this->extract_admidio_data( $rss_items );
+
+			// Sort items for date.
+			ksort( $admidio_data );
+
+			$items_counter = 1;
+			echo "<ul>";
+			foreach ( $admidio_data as $value ) {
+				echo '<li><span class="event-title ' . $init_status_event_title . '">' . $value['title'] . '</span>';
+				if ( $show_date ) {
+					echo '<span class="event-date">' . $value['start_date'] . '</span>';
+				}
+
+				echo '<div class="admidio-events-description" ' . $init_status_description . '>' . $value['description'] . '</div>';
+
+				echo '</li>';
+				if ( $items_counter >= $no_of_items ) {
+					break;
+				}
+				$items_counter++;
+			}
+
+			echo "</ul>";
 		}
-
-		// Extract Admidio data from RSS items.
-		$admidio_data = $this->extract_admidio_data( $rss_items );
-		
-		// Sort items for date.
-		ksort( $admidio_data );
-
-		$items_counter = 1;
-		echo "<ul>";
-		foreach ( $admidio_data as $value ) {
-			echo '<li><span class="event-title ' . $init_status_event_title . '">' . $value['title'] . '</span>';
-			if ( $show_date ) {
-				echo '<span class="event-date">' . $value['start_date'] . '</span>';
-			}
-			
-			echo '<div class="admidio-events-description" ' . $init_status_description . '>';
-			
-			echo $value['date_time_place'];
-			
-			if ( !empty( $value['desc'] ) ) {
-				echo $value['desc'];
-			} else {
-				echo '<p></p>';
-			}
-			
-			echo '</div>';
-
-			echo '</li>';
-			if ( $items_counter >= $no_of_items ) {
-				break;
-			}
-			$items_counter++;
-		}
-
-		echo "</ul>";
 
 		// After widget (defined by themes).
 		echo $after_widget;
@@ -329,29 +317,22 @@ class Admidio_Events_Widget extends WP_Widget {
 				$admidio_title = str_replace( $matches[0],'',$admidio_title );
 			}
 
-			// Get description, remove link at the end and decode HTML entities back to characters.
-			$admidio_description_raw = htmlspecialchars_decode( preg_replace('/<a.*<\/a>$/', '', $item->get_description()) );
+			// Get description, decode HTML entities back to characters, remove any number of break tags directly followed by link tag at the end.
+			$admidio_description_raw = preg_replace( '/(<br \/>)+<a.*<\/a>$/', '', htmlspecialchars_decode( $item->get_description(), ENT_QUOTES ) );
 
-			// Also replace two "<br />" by one, delete any Line Feeds and Tabs.
-			$admidio_description = str_replace( array('<br /><br />', "\n", "\t"), array('<br />','',''), $admidio_description_raw );
-
-			// Remove date and time information from description and keep it.
-			preg_match( '/(.*)<br \/>(.*)<br \/>$/', $admidio_description, $matches );
-			if ( count( $matches==3 ) ) {
-				$admidio_date_time_place = $matches[1];
-				$admidio_description = $matches[2];
-			}
+			// Replace two "<br />" by one and delete any Line Feeds and Tabs. Strip tags except for break tags.
+			$admidio_description = strip_tags( str_replace( array('<br /><br />', "\n", "\t"), array('<br />','',''), $admidio_description_raw ), '<br>' );
 			
 			// Get start date and convert formatting to make it usable for sorting and for pretty display.
-			$admidio_start_date = substr( $admidio_date_time_place, 0, 10 );
+			$admidio_start_date = substr( $admidio_description, 0, 10 );
 			$admidio_start_date_key = date_format( date_create_from_format( 'd.m.Y', $admidio_start_date), 'Y-m-d' );
 			$admidio_start_date_pretty = date_i18n( get_option( 'date_format' ), strtotime( $admidio_start_date_key ) );
 			
 			// Get start time for finer sorting.
-			$admidio_start_time_key = substr( $admidio_date_time_place, 11, 5 );
+			$admidio_start_time_key = substr( $admidio_description, 11, 5 );
 
 			// Create array for sorting.
-			$admidio_data[$admidio_start_date_key . ' ' . $admidio_start_time_key] = array( 'title' => $admidio_title, 'start_date' => $admidio_start_date_pretty, 'date_time_place' => $admidio_date_time_place, 'desc' => $admidio_description );
+			$admidio_data[$admidio_start_date_key . ' ' . $admidio_start_time_key] = array( 'title' => $admidio_title, 'start_date' => $admidio_start_date_pretty, 'description' => $admidio_description );
 
 		} // foreach ( $rss_items as $item )...
 		return $admidio_data;

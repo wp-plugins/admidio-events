@@ -2,7 +2,7 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://fechten-in-waldkirch.de/
  * Description: A widget that displays event data from the online membership management system Admidio.
- * Version:     0.3.4
+ * Version:     0.3.5
  * Author:      Ulrik Schoth
  * Author URI:  http://fechten-in-waldkirch.de/kontakt/webmaster/
  * 
@@ -30,6 +30,13 @@
 	justify-content: space-between;
 	align-items: flex-start;
 	width: 100%;
+	cursor: pointer;
+	padding-bottom: 1px;
+}
+
+.admidio-events .widget-title:hover {
+	border-bottom: 1px solid;
+	padding-bottom: 0;
 }
 
 .admidio-events .widget-title .text {
@@ -39,13 +46,6 @@
 .admidio-events .widget-title .icon {
 	font: 24px Genericons;
 	color: #141412;
-	cursor: pointer;
-	padding: 1px 1px 1px 3px;
-}
-
-.admidio-events .widget-title .icon:hover {
-	border: 1px solid;
-	padding: 0px 0px 0px 2px;
 }
 
 .admidio-events .widget-title .icon-expand:after {
@@ -58,7 +58,7 @@
 
 .admidio-events .event-date {
 	color: #686758;
-	margin-left: 5px;
+	margin-left: 10px;
 }
  
 .admidio-events .event-title-strong {
