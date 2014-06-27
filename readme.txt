@@ -4,7 +4,7 @@ Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster/
 Tags: admidio, date, events, rss, widget
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 0.3.4
+Stable tag: 0.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 0.3.6 =
+* Updated stable flag in readme.txt (forgotten in version 0.3.5 =8-}).
+
 = 0.3.5 =
 * Added banner for Plugin Directory.
 * Deleted default RSS feed URL and added it to installation instructions.
@@ -49,7 +52,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 * Restricted usable html tags in description to break tag.
 
 = 0.3.4 =
-* Added widget option for initial view. 
+* Added widget option for initial view.
 
 = 0.3.3 =
 * Improved expanded/collapsed view button.
