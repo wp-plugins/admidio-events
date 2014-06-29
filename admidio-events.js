@@ -1,10 +1,10 @@
 /**
  * Plugin Name: Admidio Events
- * Plugin URI:  http://fechten-in-waldkirch.de/
+ * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system Admidio.
- * Version:     0.3.6
+ * Version:     0.3.7
  * Author:      Ulrik Schoth
- * Author URI:  http://fechten-in-waldkirch.de/kontakt/webmaster/
+ * Author URI:  http://profiles.wordpress.org/fiwad/
  *
  * Module:      admidio-events.js
  * Description: Handling of expanded and collapsed view.
@@ -32,6 +32,9 @@
 jQuery( '.admidio-events .widget-title' ).click( function() {
 
 	var myWidgetInstance = jQuery( this ).parent();
+	
+	// If slideToogle animation of last click is still running: complete it immediately.
+	myWidgetInstance.find( '.admidio-events-description' ).stop( false, true );
 
 	// Update event title formatting and icon.
 	if ( myWidgetInstance.find( '.admidio-events-description' ).is( ':hidden' ) ) {

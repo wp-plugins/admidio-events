@@ -42,6 +42,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 0.3.7 =
+* Improved error handling when wrong RSS feed url is given.
+
+
 = 0.3.6 =
 * Updated stable flag in readme.txt (forgotten in version 0.3.5 =8-}).
 

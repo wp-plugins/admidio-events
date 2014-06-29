@@ -4,9 +4,9 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
- * Version:     0.3.6
+ * Version:     0.3.7
  * Author:      Ulrik Schoth
- * Author URI:  http://fechten-in-waldkirch.de/kontakt/webmaster/
+ * Author URI:  http://profiles.wordpress.org/fiwad/
  * Text Domain: admidio-events
  * Domain Path: /languages
  *
@@ -36,6 +36,7 @@
  * 
  * @since 0.3.1
  * 
+ * @todo Test Widget with 10 most popular WordPress themes.
  * @todo Error when setting feed cache time? Seems to be too short...
  * @todo Add screen shots for folder "assets" and finish readme.txt.
  */
@@ -268,7 +269,15 @@ class Admidio_Events_Widget extends WP_Widget {
 		// Change the feed cache lifetime back to default value.
 		remove_filter( 'wp_feed_cache_transient_lifetime', array( $this, 'set_feed_cache_lifetime' ) );
 		
-		if ( ! is_wp_error( $rss ) ) { // Checks that the object was created correctly
+		// The SimplePie feed object has an auto-detection built in. So when a wrong url is given,
+		// it tries to find a suitable one. We cannot use this feature here because we have to ensure 
+		// correct data content.
+		if ( strcasecmp( $rss_feed_url,$rss->feed_url ) != 0 ) {
+			return false;
+		}
+
+		// Checks that the object was created correctly		
+		if ( ! is_wp_error( $rss ) ) {
 
 			// Figure out how many total items there are, but limit it to $items_limit. 
 			$maxitems = $rss->get_item_quantity( $items_limit ); 
