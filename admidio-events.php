@@ -272,10 +272,10 @@ class Admidio_Events_Widget extends WP_Widget {
 		// The SimplePie feed object has an auto-detection built in. So when a wrong url is given,
 		// it tries to find a suitable one. We cannot use this feature here because we have to ensure 
 		// correct data content.
-		if ( strcasecmp( $rss_feed_url,$rss->feed_url ) != 0 ) {
+/*		if ( strcasecmp( $rss_feed_url,$rss->feed_url ) != 0 ) {
 			return false;
 		}
-
+*/
 		// Checks that the object was created correctly		
 		if ( ! is_wp_error( $rss ) ) {
 
@@ -332,14 +332,29 @@ class Admidio_Events_Widget extends WP_Widget {
 			// Replace two "<br />" by one and delete any Line Feeds and Tabs. Strip tags except for break tags.
 			$admidio_description = strip_tags( str_replace( array('<br /><br />', "\n", "\t"), array('<br />','',''), $admidio_description_raw ), '<br>' );
 			
-			// Get start date and convert formatting to make it usable for sorting and for pretty display.
-			$admidio_start_date = substr( $admidio_description, 0, 10 );
-			$admidio_start_date_key = date_format( date_create_from_format( 'd.m.Y', $admidio_start_date), 'Y-m-d' );
-			$admidio_start_date_pretty = date_i18n( get_option( 'date_format' ), strtotime( $admidio_start_date_key ) );
-			
-			// Get start time for finer sorting.
-			$admidio_start_time_key = substr( $admidio_description, 11, 5 );
 
+			// Get start date and ensure that the date can be correctly interpreted.
+			$admidio_start_date = substr( $admidio_description, 0, 10 );
+			
+			if ( date_create_from_format( 'd.m.Y', $admidio_start_date) !== FALSE ) {
+
+				// Convert formatting to make it usable for sorting and for pretty display.
+				$admidio_start_date_key = date_format( date_create_from_format( 'd.m.Y', $admidio_start_date), 'Y-m-d' );
+				$admidio_start_date_pretty = date_i18n( get_option( 'date_format' ), strtotime( $admidio_start_date_key ) );
+			
+				// Get start time for finer sorting.
+				$admidio_start_time_key = substr( $admidio_description, 11, 5 );
+				
+			} else {
+				
+				$admidio_start_date_key = '';
+				$admidio_start_date_pretty = '';
+				$admidio_start_time_key = '';
+				$admidio_title = __( 'Invalid event data.', 'admidio-events' );
+				$admidio_description = '';
+
+			}
+			
 			// Create array for sorting.
 			$admidio_data[$admidio_start_date_key . ' ' . $admidio_start_time_key] = array( 'title' => $admidio_title, 'start_date' => $admidio_start_date_pretty, 'description' => $admidio_description );
 

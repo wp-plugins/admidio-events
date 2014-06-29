@@ -44,7 +44,8 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 = 0.3.7 =
 * Improved error handling when wrong RSS feed url is given.
-
+* Improved handling if user has a nervous finger when changing views (queueing prevented).
+* Pointed author uri in files to PlugIn directory.
 
 = 0.3.6 =
 * Updated stable flag in readme.txt (forgotten in version 0.3.5 =8-}).
