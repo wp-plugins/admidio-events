@@ -44,8 +44,7 @@
 }
 
 .admidio-events .widget-title .icon {
-	font: 24px Genericons;
-	color: #141412;
+	font: 120% Genericons;
 }
 
 .admidio-events .widget-title .icon-expand:after {
@@ -57,7 +56,6 @@
 }
 
 .admidio-events .event-date {
-	color: #686758;
 	margin-left: 10px;
 }
  

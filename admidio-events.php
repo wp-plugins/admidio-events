@@ -36,6 +36,9 @@
  * 
  * @since 0.3.1
  * 
+ * @todo Add validation of color value.
+ * @todo Improve layout and function of color picker (does currently not work if widget freshly added).
+ * @todo Add option to adapt to date format setting in Admidio (?).
  * @todo Test Widget with 10 most popular WordPress themes.
  * @todo Error when setting feed cache time? Seems to be too short...
  * @todo Add screen shots for folder "assets" and finish readme.txt.
@@ -64,6 +67,7 @@ class Admidio_Events_Widget extends WP_Widget {
 		);
 		// Register style sheet and scripts.
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles_and_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_color_picker' ) );
 
 	}
 
@@ -78,8 +82,23 @@ class Admidio_Events_Widget extends WP_Widget {
 	 */
 	public function register_plugin_styles_and_scripts() {
 
-		wp_enqueue_style( 'admidio-events', plugins_url( 'admidio-events.css', __FILE__ ), array(), '0.3.1' );
-		wp_enqueue_script( 'admidio-events-js', plugins_url( 'admidio-events.js', __FILE__ ), array( 'jquery' ), '0.3.1', true );
+		wp_enqueue_style( 'admidio-events', plugins_url( 'admidio-events.css', __FILE__ ), array(), false );
+		wp_enqueue_script( 'admidio-events-js', plugins_url( 'admidio-events.js', __FILE__ ), array( 'jquery' ), false, true );
+
+	}
+
+	
+	/**
+	 * Register color picker.
+	 * 
+	 * @see http://make.wordpress.org/core/2012/11/30/new-color-picker-in-wp-3-5/
+	 * 
+	 * @since 0.3.7
+	 */
+	public function register_color_picker() {
+
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'my-script-handle', plugins_url( 'admidio-events.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 
 	}
 
@@ -99,6 +118,7 @@ class Admidio_Events_Widget extends WP_Widget {
 			'rss_feed'       => '',
 			'no_of_items'    => '5',
 			'show_date'      => '0',
+			'date_color'     => '#888888',
 			'start_expanded' => '0',
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -121,6 +141,10 @@ class Admidio_Events_Widget extends WP_Widget {
 					}
 				?>
 			</select>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'date_color' ); ?>"><?php _e( 'Color of event date:', 'admidio-events' ); ?></label>
+			<input id="<?php echo $this->get_field_id( 'date_color' ); ?>" name="<?php echo $this->get_field_name( 'date_color' ); ?>" value="<?php echo $instance['date_color']; ?>"  maxlength="7" size="7" class="date-color-picker" />
 		</p>
 		<p>
 			<input id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['show_date'] ); ?> />
@@ -156,6 +180,7 @@ class Admidio_Events_Widget extends WP_Widget {
 		$instance['rss_feed']        = strip_tags( $new_instance['rss_feed'] );
 		$instance['no_of_items']     = strip_tags( $new_instance['no_of_items'] );
 		$instance['show_date']       = strip_tags( $new_instance['show_date'] );
+		$instance['date_color']      = strip_tags( $new_instance['date_color'] );
 		$instance['start_expanded']  = strip_tags( $new_instance['start_expanded'] );
 
 		return $instance;
@@ -172,11 +197,12 @@ class Admidio_Events_Widget extends WP_Widget {
 	 */
 	function widget( $args, $instance ) {
 		
-		// Get our variables from the widget settings.
+		// Get variables from the widget settings.
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		$rss_feed = $instance['rss_feed'];
 		$no_of_items = $instance['no_of_items'];
 		$show_date = $instance['show_date'];
+		$date_color = $instance['date_color'];
 		$start_expanded = $instance['start_expanded'];
 
 
@@ -221,7 +247,7 @@ class Admidio_Events_Widget extends WP_Widget {
 			foreach ( $admidio_data as $value ) {
 				echo '<li><span class="event-title ' . $init_status_event_title . '">' . $value['title'] . '</span>';
 				if ( $show_date ) {
-					echo '<span class="event-date">' . $value['start_date'] . '</span>';
+					echo '<span class="event-date" style="color: ' . $date_color . ';">' . $value['start_date'] . '</span>';
 				}
 
 				echo '<div class="admidio-events-description" ' . $init_status_description . '>' . $value['description'] . '</div>';
@@ -377,5 +403,6 @@ add_action( 'widgets_init', function(){
 // Load language file.
 $plugin_dir = basename( dirname( __FILE__ ) );
 load_plugin_textdomain( 'admidio-events', null, $plugin_dir . '/languages/' );
-	
+
+
 ?>

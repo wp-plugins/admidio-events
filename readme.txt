@@ -43,6 +43,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 == Changelog ==
 
 = 0.3.7 =
+* Added selection for date color.
 * Improved error handling when wrong RSS feed url is given.
 * Improved handling if user has a nervous finger when changing views (queueing prevented).
 * Pointed author uri in files to PlugIn directory.

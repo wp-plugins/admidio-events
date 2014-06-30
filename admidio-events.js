@@ -55,3 +55,12 @@ jQuery( '.admidio-events .widget-title' ).click( function() {
 	});
 	
 });
+
+
+/**
+ * Color picker to select date color in admin screen.
+ * @since 0.3.7
+ */
+jQuery(document).ready(function($){
+    $('.date-color-picker').wpColorPicker();
+});
