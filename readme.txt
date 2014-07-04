@@ -4,7 +4,7 @@ Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster/
 Tags: admidio, date, events, rss, widget
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 0.3.6
+Stable tag: 0.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,10 +43,11 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 == Changelog ==
 
 = 0.3.7 =
-* Added selection for date color.
+* Added color picker to select date color.
 * Improved error handling when wrong RSS feed url is given.
 * Improved handling if user has a nervous finger when changing views (queueing prevented).
-* Pointed author uri in files to PlugIn directory.
+* Moved css and js files to subdirectories.
+* Pointed author uri in header to PlugIn directory.
 
 = 0.3.6 =
 * Updated stable flag in readme.txt (forgotten in version 0.3.5 =8-}).

@@ -36,12 +36,10 @@
  * 
  * @since 0.3.1
  * 
- * @todo Add validation of color value.
- * @todo Improve layout and function of color picker (does currently not work if widget freshly added).
- * @todo Add option to adapt to date format setting in Admidio (?).
- * @todo Test Widget with 10 most popular WordPress themes.
- * @todo Error when setting feed cache time? Seems to be too short...
+ * @todo Test widget with 10 most popular WordPress themes.
  * @todo Add screen shots for folder "assets" and finish readme.txt.
+ * @todo (in future version) Add option to adapt to date format setting in Admidio (?).
+ * @todo (in future version) Check setting of feed cache time. Possibly shorter than setting.
  */
 class Admidio_Events_Widget extends WP_Widget {
 
@@ -59,15 +57,12 @@ class Admidio_Events_Widget extends WP_Widget {
 			array(
 				'classname' => 'admidio-events', // Class name for CSS.
 				'description' => __( 'Event data from Admidio.', 'admidio-events' ), // Description used on widget configuration page.
-			),
-			array(
-				'width' => 400,
-				'height' => 200,
 			)
 		);
+		
 		// Register style sheet and scripts.
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles_and_scripts' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_color_picker' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_styles_and_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_styles_and_scripts' ) );
 
 	}
 
@@ -80,10 +75,10 @@ class Admidio_Events_Widget extends WP_Widget {
 	 * 
 	 * @since 0.3.1
 	 */
-	public function register_plugin_styles_and_scripts() {
+	public function register_frontend_styles_and_scripts() {
 
-		wp_enqueue_style( 'admidio-events', plugins_url( 'admidio-events.css', __FILE__ ), array(), false );
-		wp_enqueue_script( 'admidio-events-js', plugins_url( 'admidio-events.js', __FILE__ ), array( 'jquery' ), false, true );
+		wp_enqueue_style( 'admidio-events', plugins_url( 'css/admidio-events.css', __FILE__ ), array(), false );
+		wp_enqueue_script( 'admidio-events-js', plugins_url( 'js/admidio-events.js', __FILE__ ), array( 'jquery' ), false, true );
 
 	}
 
@@ -95,10 +90,15 @@ class Admidio_Events_Widget extends WP_Widget {
 	 * 
 	 * @since 0.3.7
 	 */
-	public function register_color_picker() {
+	public function register_admin_styles_and_scripts( $hook ) {
 
+		// We'll need the color picker only for widgets admin screen.
+		if ( 'widgets.php' !== $hook ) {
+			return;
+		}
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'my-script-handle', plugins_url( 'admidio-events.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+		wp_enqueue_script( 'underscore' );
+		wp_enqueue_script( 'admidio-events-admin-js', plugins_url( 'js/admidio-events-admin.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 
 	}
 
@@ -126,11 +126,11 @@ class Admidio_Events_Widget extends WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'admidio-events' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'rss_feed' ); ?>"><?php _e( 'Enter the event RSS feed URL here:', 'admidio-events' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'rss_feed' ); ?>" name="<?php echo $this->get_field_name( 'rss_feed' ); ?>" value="<?php echo $instance['rss_feed']; ?>" style="width:100%;" />
+			<input class="widefat" id="<?php echo $this->get_field_id( 'rss_feed' ); ?>" name="<?php echo $this->get_field_name( 'rss_feed' ); ?>" value="<?php echo $instance['rss_feed']; ?>" />
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'no_of_items' ); ?>"><?php _e( 'How many events would you like to display?', 'admidio-events' ); ?></label>
@@ -143,12 +143,12 @@ class Admidio_Events_Widget extends WP_Widget {
 			</select>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'date_color' ); ?>"><?php _e( 'Color of event date:', 'admidio-events' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'date_color' ); ?>" name="<?php echo $this->get_field_name( 'date_color' ); ?>" value="<?php echo $instance['date_color']; ?>"  maxlength="7" size="7" class="date-color-picker" />
+			<input id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['show_date'] ); ?> />
+			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display event title with event date?', 'admidio-events' ); ?></label>
 		</p>
 		<p>
-			<input id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['show_date'] ); ?> />
-			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display event date in collapsed view?', 'admidio-events' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'date_color' ); ?>"><?php _e( 'Event date font color:', 'admidio-events' ); ?></label><br />
+			<input type="text" class="date-color-picker" id="<?php echo $this->get_field_id( 'date_color' ); ?>" name="<?php echo $this->get_field_name( 'date_color' ); ?>" value="<?php echo $instance['date_color']; ?>" />
 		</p>
 		<p>
 			<input id="<?php echo $this->get_field_id( 'start_expanded' ); ?>" name="<?php echo $this->get_field_name( 'start_expanded' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['start_expanded'] ); ?> />
@@ -180,8 +180,18 @@ class Admidio_Events_Widget extends WP_Widget {
 		$instance['rss_feed']        = strip_tags( $new_instance['rss_feed'] );
 		$instance['no_of_items']     = strip_tags( $new_instance['no_of_items'] );
 		$instance['show_date']       = strip_tags( $new_instance['show_date'] );
-		$instance['date_color']      = strip_tags( $new_instance['date_color'] );
 		$instance['start_expanded']  = strip_tags( $new_instance['start_expanded'] );
+
+		// Date color validation
+		$date_color = strip_tags( $new_instance['date_color'] );
+		preg_match( '/^#?([a-f0-9]{6})$/i', $date_color, $matches );
+		if ( count( $matches) == 2 )
+		{
+			$date_color = '#' . $matches[1];
+		} else {
+			$date_color = '#888888';
+		}
+		$instance['date_color'] = $date_color;
 
 		return $instance;
 	}
@@ -348,7 +358,7 @@ class Admidio_Events_Widget extends WP_Widget {
 			// Remove date(s) from RSS title.
 			$admidio_title = $item->get_title();
 			preg_match( '/^(\d{2}\.\d{2}\.\d{4})( - )?(\d{2}\.\d{2}\.\d{4})?\s/', $admidio_title, $matches );
-			if ( (count( $matches )==2) or (count( $matches )==4) ) {
+			if ( (count( $matches ) == 2 ) or (count( $matches ) == 4 ) ) {
 				$admidio_title = str_replace( $matches[0],'',$admidio_title );
 			}
 

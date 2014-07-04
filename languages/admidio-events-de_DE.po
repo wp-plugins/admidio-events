@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Admidio Events v0.3.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-06-29 18:45:25+0000\n"
+"PO-Revision-Date: 2014-07-04 14:57:19+0000\n"
 "Last-Translator: Ulrik Schoth<webmaster@fechten-in-waldkirch.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,47 +44,42 @@ msgstr "Ein Widget, das Termindaten aus der Online-Mitgliederverwaltung <a href=
 msgid "Ulrik Schoth"
 msgstr ""
 
-#: admidio-events.php:58
+#: admidio-events.php:62
 #@ admidio-events
 msgid "Event data from Admidio."
 msgstr "Veranstaltungsdaten von Admidio."
 
-#: admidio-events.php:98
+#: admidio-events.php:120
 #@ admidio-events
 msgid "Upcoming Events"
 msgstr "Terminvorschau"
 
-#: admidio-events.php:109
+#: admidio-events.php:131
 #@ admidio-events
 msgid "Title:"
 msgstr "Titel:"
 
-#: admidio-events.php:113
+#: admidio-events.php:135
 #@ admidio-events
 msgid "Enter the event RSS feed URL here:"
 msgstr "URL des Admidio-RSS-Feeds für Veranstaltungen:"
 
-#: admidio-events.php:117
+#: admidio-events.php:139
 #@ admidio-events
 msgid "How many events would you like to display?"
 msgstr "Wie viele Veranstaltungen sollen angezeigt werden?"
 
-#: admidio-events.php:132
-#@ admidio-events
-msgid "Display event date in collapsed view?"
-msgstr "Veranstaltungsdatum in eingeklappter Ansicht anzeigen?"
-
-#: admidio-events.php:212
+#: admidio-events.php:234
 #@ admidio-events
 msgid "Error when fetching event data."
 msgstr "Fehler beim Abrufen der Veranstaltungsdaten."
 
-#: admidio-events.php:216
+#: admidio-events.php:238
 #@ admidio-events
 msgid "No event data available."
 msgstr "Keine Veranstaltungsdaten vorhanden."
 
-#: admidio-events.php:136
+#: admidio-events.php:158
 #@ admidio-events
 msgid "Start with expanded view?"
 msgstr "Mit erweiterter Ansicht starten?"
@@ -101,13 +96,18 @@ msgstr ""
 msgid "0.3.7"
 msgstr ""
 
-#: admidio-events.php:360
+#: admidio-events.php:382
 #@ admidio-events
 msgid "Invalid event data."
 msgstr "Ungültige Veranstaltungsdaten."
 
-#: admidio-events.php:127
+#: admidio-events.php:153
 #@ admidio-events
-msgid "Color of event date:"
-msgstr "Farbe des Veranstaltungsdatums:"
+msgid "Event date font color:"
+msgstr "Schriftfarbe Veranstaltungsdatum:"
+
+#: admidio-events.php:150
+#@ admidio-events
+msgid "Display event title with event date?"
+msgstr "Veranstaltungstitel mit Veranstaltungsdatum anzeigen?"
 
