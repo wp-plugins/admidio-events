@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Admidio Events v0.3.7\n"
+"Project-Id-Version: Admidio Events v0.3.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-07-04 14:57:19+0000\n"
+"PO-Revision-Date: 2014-07-12 09:37:34+0000\n"
 "Last-Translator: Ulrik Schoth<webmaster@fechten-in-waldkirch.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,42 +44,42 @@ msgstr "Ein Widget, das Termindaten aus der Online-Mitgliederverwaltung <a href=
 msgid "Ulrik Schoth"
 msgstr ""
 
-#: admidio-events.php:62
+#: admidio-events.php:65
 #@ admidio-events
 msgid "Event data from Admidio."
 msgstr "Veranstaltungsdaten von Admidio."
 
-#: admidio-events.php:120
+#: admidio-events.php:130
 #@ admidio-events
 msgid "Upcoming Events"
 msgstr "Terminvorschau"
 
-#: admidio-events.php:131
+#: admidio-events.php:142
 #@ admidio-events
 msgid "Title:"
 msgstr "Titel:"
 
-#: admidio-events.php:135
+#: admidio-events.php:146
 #@ admidio-events
 msgid "Enter the event RSS feed URL here:"
-msgstr "URL des Admidio-RSS-Feeds für Veranstaltungen:"
+msgstr "URL des RSS-Feeds für Veranstaltungen:"
 
-#: admidio-events.php:139
+#: admidio-events.php:160
 #@ admidio-events
 msgid "How many events would you like to display?"
 msgstr "Wie viele Veranstaltungen sollen angezeigt werden?"
 
-#: admidio-events.php:234
+#: admidio-events.php:266
 #@ admidio-events
 msgid "Error when fetching event data."
 msgstr "Fehler beim Abrufen der Veranstaltungsdaten."
 
-#: admidio-events.php:238
+#: admidio-events.php:270
 #@ admidio-events
 msgid "No event data available."
 msgstr "Keine Veranstaltungsdaten vorhanden."
 
-#: admidio-events.php:158
+#: admidio-events.php:179
 #@ admidio-events
 msgid "Start with expanded view?"
 msgstr "Mit erweiterter Ansicht starten?"
@@ -90,24 +90,29 @@ msgstr "Mit erweiterter Ansicht starten?"
 msgid "http://profiles.wordpress.org/fiwad/"
 msgstr ""
 
-#. translators: plugin header field 'Version'
-#: admidio-events.php:0
-#@ admidio-events
-msgid "0.3.7"
-msgstr ""
-
-#: admidio-events.php:382
+#: admidio-events.php:410
 #@ admidio-events
 msgid "Invalid event data."
 msgstr "Ungültige Veranstaltungsdaten."
 
-#: admidio-events.php:153
+#. translators: plugin header field 'Version'
+#: admidio-events.php:0
 #@ admidio-events
-msgid "Event date font color:"
-msgstr "Schriftfarbe Veranstaltungsdatum:"
+msgid "0.3.8"
+msgstr ""
+
+#: admidio-events.php:171
+#@ admidio-events
+msgid "Display event title with date?"
+msgstr "Veranstaltungstitel mit Datum anzeigen?"
+
+#: admidio-events.php:174
+#@ admidio-events
+msgid "Date font color:"
+msgstr "Schriftfarbe Datum:"
 
 #: admidio-events.php:150
 #@ admidio-events
-msgid "Display event title with event date?"
-msgstr "Veranstaltungstitel mit Veranstaltungsdatum anzeigen?"
+msgid "Date format setting in Admidio:"
+msgstr "Datumsformat-Einstellung in Admidio:"
 

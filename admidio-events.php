@@ -4,7 +4,7 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
- * Version:     0.3.7
+ * Version:     0.3.8
  * Author:      Ulrik Schoth
  * Author URI:  http://profiles.wordpress.org/fiwad/
  * Text Domain: admidio-events
@@ -38,11 +38,17 @@
  * 
  * @todo Test widget with 10 most popular WordPress themes.
  * @todo Add screen shots for folder "assets" and finish readme.txt.
- * @todo (in future version) Add option to adapt to date format setting in Admidio (?).
- * @todo (in future version) Check setting of feed cache time. Possibly shorter than setting.
  */
 class Admidio_Events_Widget extends WP_Widget {
 
+	/**
+	 * Regular expressions for extracting event date information.
+	 * 
+	 * @since 0.3.8
+	 */
+	private $date_formats;
+
+	
 	/**
 	 * Widget class initialization (set up widget name etc).
 	 * 
@@ -58,6 +64,13 @@ class Admidio_Events_Widget extends WP_Widget {
 				'classname' => 'admidio-events', // Class name for CSS.
 				'description' => __( 'Event data from Admidio.', 'admidio-events' ), // Description used on widget configuration page.
 			)
+		);
+		
+		// Init private variable.
+		$this->date_formats = array (
+			'd.m.Y' => '/^(\d{2}\.\d{2}\.\d{4})( - )?(\d{2}\.\d{2}\.\d{4})?\s/',
+			'd.m.'  => '/^(\d{2}\.\d{2}\.)( - )?(\d{2}\.\d{2}\.)?\s/',
+			'Y-m-d' => '/^(\d{4}-\d{2}-\d{2})( - )?(\d{4}-\d{2}-\d{2})?\s/',
 		);
 		
 		// Register style sheet and scripts.
@@ -116,6 +129,7 @@ class Admidio_Events_Widget extends WP_Widget {
 		$defaults = array(
 			'title'          => __( 'Upcoming Events', 'admidio-events' ),
 			'rss_feed'       => '',
+			'date_format'    => array_keys( $this->date_formats )[0],
 			'no_of_items'    => '5',
 			'show_date'      => '0',
 			'date_color'     => '#888888',
@@ -133,6 +147,16 @@ class Admidio_Events_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'rss_feed' ); ?>" name="<?php echo $this->get_field_name( 'rss_feed' ); ?>" value="<?php echo $instance['rss_feed']; ?>" />
 		</p>
 		<p>
+			<label for="<?php echo $this->get_field_id( 'date_format' ); ?>"><?php _e( 'Date format setting in Admidio:', 'admidio-events' ); ?></label>
+			<select id="<?php echo $this->get_field_id( 'date_format' ); ?>" name="<?php echo $this->get_field_name( 'date_format' ); ?>">
+				<?php
+					foreach ( array_keys( $this->date_formats ) as $date_format ) {
+						echo '<option value="' . $date_format . '"', selected( $instance['date_format'], $date_format, false ), '>', $date_format, '</option>'; 
+					}
+				?>
+			</select>
+		</p>
+		<p>
 			<label for="<?php echo $this->get_field_id( 'no_of_items' ); ?>"><?php _e( 'How many events would you like to display?', 'admidio-events' ); ?></label>
 			<select id="<?php echo $this->get_field_id( 'no_of_items' ); ?>" name="<?php echo $this->get_field_name( 'no_of_items' ); ?>">
 				<?php
@@ -144,10 +168,10 @@ class Admidio_Events_Widget extends WP_Widget {
 		</p>
 		<p>
 			<input id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" type="checkbox" value="1" <?php checked( '1', $instance['show_date'] ); ?> />
-			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display event title with event date?', 'admidio-events' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display event title with date?', 'admidio-events' ); ?></label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'date_color' ); ?>"><?php _e( 'Event date font color:', 'admidio-events' ); ?></label><br />
+			<label for="<?php echo $this->get_field_id( 'date_color' ); ?>"><?php _e( 'Date font color:', 'admidio-events' ); ?></label><br />
 			<input type="text" class="date-color-picker" id="<?php echo $this->get_field_id( 'date_color' ); ?>" name="<?php echo $this->get_field_name( 'date_color' ); ?>" value="<?php echo $instance['date_color']; ?>" />
 		</p>
 		<p>
@@ -175,21 +199,21 @@ class Admidio_Events_Widget extends WP_Widget {
 
 		$instance = $old_instance;
 
-		// Strip tags for title and rss feed to remove HTML (important for text inputs).
+		// Strip tags to remove HTML.
 		$instance['title']           = strip_tags( $new_instance['title'] );
 		$instance['rss_feed']        = strip_tags( $new_instance['rss_feed'] );
+		$instance['date_format']     = strip_tags( $new_instance['date_format'] );
 		$instance['no_of_items']     = strip_tags( $new_instance['no_of_items'] );
 		$instance['show_date']       = strip_tags( $new_instance['show_date'] );
 		$instance['start_expanded']  = strip_tags( $new_instance['start_expanded'] );
 
-		// Date color validation
+		// Date color validation. If color code is not correct, use previous one.
 		$date_color = strip_tags( $new_instance['date_color'] );
 		preg_match( '/^#?([a-f0-9]{6})$/i', $date_color, $matches );
-		if ( count( $matches) == 2 )
-		{
+		if ( count( $matches) == 2 ) {
 			$date_color = '#' . $matches[1];
 		} else {
-			$date_color = '#888888';
+			$date_color = $old_instance['date_color'];
 		}
 		$instance['date_color'] = $date_color;
 
@@ -210,6 +234,7 @@ class Admidio_Events_Widget extends WP_Widget {
 		// Get variables from the widget settings.
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		$rss_feed = $instance['rss_feed'];
+		$date_format = $instance['date_format'];
 		$no_of_items = $instance['no_of_items'];
 		$show_date = $instance['show_date'];
 		$date_color = $instance['date_color'];
@@ -247,7 +272,7 @@ class Admidio_Events_Widget extends WP_Widget {
 		} else {
 
 			// Extract Admidio data from RSS items.
-			$admidio_data = $this->extract_admidio_data( $rss_items );
+			$admidio_data = $this->extract_admidio_data( $rss_items, $date_format );
 
 			// Sort items for date.
 			ksort( $admidio_data );
@@ -338,7 +363,7 @@ class Admidio_Events_Widget extends WP_Widget {
 	 * @return int New time.
 	 */
 	public function set_feed_cache_lifetime( $seconds ) {
-		return 3600;
+		return 60;
 	}
 
 	
@@ -348,46 +373,45 @@ class Admidio_Events_Widget extends WP_Widget {
 	 * @since 0.3.1
 	 * 
 	 * @param array $rss_items
+	 * @param string $date_format
 	 * @return array Extracted Admidio data.
 	 */
-	function extract_admidio_data( $rss_items ) {
+	function extract_admidio_data( $rss_items, $date_format ) {
 
 		$admidio_data = array();
 		foreach ( $rss_items as $item ) {
 
-			// Remove date(s) from RSS title.
+			// Check for correct date format setting.
 			$admidio_title = $item->get_title();
-			preg_match( '/^(\d{2}\.\d{2}\.\d{4})( - )?(\d{2}\.\d{2}\.\d{4})?\s/', $admidio_title, $matches );
-			if ( (count( $matches ) == 2 ) or (count( $matches ) == 4 ) ) {
+			preg_match( $this->date_formats[ $date_format ], $admidio_title, $matches );
+			if ( ( ( count( $matches ) === 2 ) or ( count( $matches ) === 4 ) ) and ( date_create_from_format( $date_format, $matches[1] ) !== FALSE ) ) {
+				
+				// Remove date(s) from title.
 				$admidio_title = str_replace( $matches[0],'',$admidio_title );
-			}
-
-			// Get description, decode HTML entities back to characters, remove any number of break tags directly followed by link tag at the end.
-			$admidio_description_raw = preg_replace( '/(<br \/>)+<a.*<\/a>$/', '', htmlspecialchars_decode( $item->get_description(), ENT_QUOTES ) );
-
-			// Replace two "<br />" by one and delete any Line Feeds and Tabs. Strip tags except for break tags.
-			$admidio_description = strip_tags( str_replace( array('<br /><br />', "\n", "\t"), array('<br />','',''), $admidio_description_raw ), '<br>' );
-			
-
-			// Get start date and ensure that the date can be correctly interpreted.
-			$admidio_start_date = substr( $admidio_description, 0, 10 );
-			
-			if ( date_create_from_format( 'd.m.Y', $admidio_start_date) !== FALSE ) {
 
 				// Convert formatting to make it usable for sorting and for pretty display.
-				$admidio_start_date_key = date_format( date_create_from_format( 'd.m.Y', $admidio_start_date), 'Y-m-d' );
+				$admidio_start_date_key = date_format( date_create_from_format( $date_format, $matches[1]), 'Y-m-d' );
 				$admidio_start_date_pretty = date_i18n( get_option( 'date_format' ), strtotime( $admidio_start_date_key ) );
-			
+
+				// Get description, decode HTML entities back to characters, remove any number of break tags directly followed by link tag at the end.
+				$admidio_description_raw = preg_replace( '/(<br \/>)+<a.*<\/a>$/', '', htmlspecialchars_decode( $item->get_description(), ENT_QUOTES ) );
+
+				// Replace two "<br />" by one and delete any Line Feeds and Tabs. Strip tags except for break tags.
+				$admidio_description = strip_tags( str_replace( array('<br /><br />', "\n", "\t"), array('<br />','',''), $admidio_description_raw ), '<br>' );
+
 				// Get start time for finer sorting.
-				$admidio_start_time_key = substr( $admidio_description, 11, 5 );
+				$admidio_start_time_key = substr( $admidio_description, strlen( $matches[1] ) + 1, 5 );
+				if ( date_create_from_format( 'H:i', $admidio_start_time_key ) === FALSE ) {
+					$admidio_start_time_key = '00:00';
+				}
 				
 			} else {
-				
-				$admidio_start_date_key = '';
+
+				$admidio_title             = __( 'Invalid event data.', 'admidio-events' );
+				$admidio_start_date_key    = '';
 				$admidio_start_date_pretty = '';
-				$admidio_start_time_key = '';
-				$admidio_title = __( 'Invalid event data.', 'admidio-events' );
-				$admidio_description = '';
+				$admidio_start_time_key    = '';
+				$admidio_description       = '';
 
 			}
 			
@@ -397,6 +421,7 @@ class Admidio_Events_Widget extends WP_Widget {
 		} // foreach ( $rss_items as $item )...
 		return $admidio_data;
 	}
+	
 } // class Admidio_Events_Widget ...
 
 

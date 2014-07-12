@@ -4,7 +4,7 @@ Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster/
 Tags: admidio, date, events, rss, widget
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 0.3.7
+Stable tag: 0.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 (Answer) 
 
 == Changelog ==
+
+= 0.3.8 =
+* Added option to adapt to date format setting in Admidio. (Time format in Admidio has to start with 'H:i' or 'h:i'.)
+* Changed feed cache time from one hour to one minute.
 
 = 0.3.7 =
 * Added color picker to select date color.
