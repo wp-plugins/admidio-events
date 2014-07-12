@@ -4,7 +4,7 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
- * Version:     0.3.8
+ * Version:     0.3.9
  * Author:      Ulrik Schoth
  * Author URI:  http://profiles.wordpress.org/fiwad/
  * Text Domain: admidio-events
@@ -126,10 +126,11 @@ class Admidio_Events_Widget extends WP_Widget {
 	function form( $instance ) {
 
 		// Set up default widget settings.
+		$date_formats_temp = array_keys( $this->date_formats ); // temporary variable necessary for PHP versions 5.3 and older
 		$defaults = array(
 			'title'          => __( 'Upcoming Events', 'admidio-events' ),
 			'rss_feed'       => '',
-			'date_format'    => array_keys( $this->date_formats )[0],
+			'date_format'    => $date_formats_temp[0], // PHP 5.4 and higher: array_keys( $this->date_formats )[0],
 			'no_of_items'    => '5',
 			'show_date'      => '0',
 			'date_color'     => '#888888',
@@ -333,10 +334,10 @@ class Admidio_Events_Widget extends WP_Widget {
 		// The SimplePie feed object has an auto-detection built in. So when a wrong url is given,
 		// it tries to find a suitable one. We cannot use this feature here because we have to ensure 
 		// correct data content.
-/*		if ( strcasecmp( $rss_feed_url,$rss->feed_url ) != 0 ) {
+		if ( strcasecmp( $rss_feed_url,$rss->feed_url ) != 0 ) {
 			return false;
 		}
-*/
+
 		// Checks that the object was created correctly		
 		if ( ! is_wp_error( $rss ) ) {
 
