@@ -4,7 +4,7 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
- * Version:     0.3.9
+ * Version:     0.4.0
  * Author:      Ulrik Schoth
  * Author URI:  http://profiles.wordpress.org/fiwad/
  * Text Domain: admidio-events
@@ -36,7 +36,6 @@
  * 
  * @since 0.3.1
  * 
- * @todo Test widget with 10 most popular WordPress themes.
  * @todo Add screen shots for folder "assets" and finish readme.txt.
  */
 class Admidio_Events_Widget extends WP_Widget {
@@ -187,7 +186,7 @@ class Admidio_Events_Widget extends WP_Widget {
 	/**
 	 * Update a particular instance.
 	 * 
-	 * This function should check that *$new_instance* is set correctly. The newly calculated value of *$instance* should be returned. If *false* is returned, the instance won't be saved/updated.
+	 * This function checks that *$new_instance* is set correctly. The newly calculated value of *$instance* should be returned.If *false* is returned, the instance won't be saved/updated.
 	 * 
 	 * @since 0.3.1
 	 * 
@@ -202,12 +201,18 @@ class Admidio_Events_Widget extends WP_Widget {
 
 		// Strip tags to remove HTML.
 		$instance['title']           = strip_tags( $new_instance['title'] );
-		$instance['rss_feed']        = strip_tags( $new_instance['rss_feed'] );
 		$instance['date_format']     = strip_tags( $new_instance['date_format'] );
 		$instance['no_of_items']     = strip_tags( $new_instance['no_of_items'] );
 		$instance['show_date']       = strip_tags( $new_instance['show_date'] );
 		$instance['start_expanded']  = strip_tags( $new_instance['start_expanded'] );
 
+		// Ensure that url contains scheme.
+		$rss_feed_url = strip_tags( $new_instance['rss_feed'] );
+		if ( parse_url( $rss_feed_url, PHP_URL_SCHEME ) === null ) {
+			$rss_feed_url = 'http://' . $rss_feed_url;
+		}
+		$instance['rss_feed'] = $rss_feed_url;
+ 
 		// Date color validation. If color code is not correct, use previous one.
 		$date_color = strip_tags( $new_instance['date_color'] );
 		preg_match( '/^#?([a-f0-9]{6})$/i', $date_color, $matches );

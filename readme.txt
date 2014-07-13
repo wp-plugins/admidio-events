@@ -16,7 +16,7 @@ A widget that displays event data from the online membership management system <
 
 **Admidio Events** displays such event data in the widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events shown is configurable. Also the widget offers a collapsed (event name, optional: date) or expanded (all event data) view. The data from Admidio to WordPress is transferred via RSS.
 
-Please note that the font *Genericons* has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (e. g. <a href="http://wordpress.org/themes/twentythirteen/">Twenty Thirteen</a> or <a href="http://wordpress.org/themes/twentyfourteen/">Twenty Fourteen</a>) or by using a Plugin that adds *Genericons* to your theme (e. g. <a href="http://wordpress.org/plugins/genericond/">Genericon'd</a>).
+Please note that the free icon font *Genericons* has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (e. g. <a href="http://wordpress.org/themes/twentythirteen/">Twenty Thirteen</a> or <a href="http://wordpress.org/themes/twentyfourteen/">Twenty Fourteen</a>) or by using a Plugin that adds *Genericons* to your theme (e. g. <a href="http://wordpress.org/plugins/genericond/">Genericon'd</a>).
 == Installation ==
 
 Quick and easy installation:
@@ -41,6 +41,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 (Answer) 
 
 == Changelog ==
+
+= 0.4.0 =
+* Addition of url scheme *http://* to RSS feed url if necessary.
+* Tests done with the currently most popular WordPress themes: Customizr 3.1.17, Twenty Thirteen 1.2, Twenty Fourteen 1.1 worked out of the box. Eighties 1.1.0, Los 1.1.0, Oxygen 0.5.4, Twenty Ten 1.6, Twenty Eleven 1.8, Twenty Twelve 1.4 worked after installation of Plugin *Genericon'd*.
 
 = 0.3.9 =
 * Replaced some code in PHP 5.4 syntax by code that is compatible with older PHP versions.
