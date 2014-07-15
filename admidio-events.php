@@ -36,7 +36,7 @@
  * 
  * @since 0.3.1
  * 
- * @todo Add screen shots for folder "assets" and finish readme.txt.
+ * @todo Add section "FAQ" to readme.txt.
  */
 class Admidio_Events_Widget extends WP_Widget {
 

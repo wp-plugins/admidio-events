@@ -1,49 +1,68 @@
 === Admidio Events ===
 Contributors: fiwad
-Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster/
+Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster-english/
 Tags: admidio, date, events, rss, widget
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 0.3.9
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Stable tag: 0.4.0
+License: GPLv3 or later
+License URI:  http://www.gnu.org/licenses/gpl-3.0
 
 A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
 
 == Description ==
-
 [Admidio](http://sourceforge.net/projects/admidio/ "Admidio at SourceForge") is a free PHP based membership management system for organizations and groups. It also offers an event manager module to plan date, time and place of events.
 
-**Admidio Events** displays such event data in the widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events shown is configurable. Also the widget offers a collapsed (event name, optional: date) or expanded (all event data) view. The data from Admidio to WordPress is transferred via RSS.
+**Admidio Events** displays such event data in the widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events shown is configurable. Also the widget provides a collapsed (event name, optional: date) or expanded (all event data) view which can be toggled between. The data from Admidio to WordPress is transferred via RSS.
 
-Please note that the free icon font *Genericons* has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (e. g. <a href="http://wordpress.org/themes/twentythirteen/">Twenty Thirteen</a> or <a href="http://wordpress.org/themes/twentyfourteen/">Twenty Fourteen</a>) or by using a Plugin that adds *Genericons* to your theme (e. g. <a href="http://wordpress.org/plugins/genericond/">Genericon'd</a>).
+Please note that the free icon font *Genericons* has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (for example [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/) or [Twenty Fourteen](http://wordpress.org/themes/twentyfourteen/) or by using a Plugin that adds *Genericons* to your theme (for example [Genericon'd](http://wordpress.org/plugins/genericond/)).
+
 == Installation ==
 
-Quick and easy installation:
+Detailed installation instructions can be found in the [WordPress Codex](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
 
-1. Upload the folder `admidio-events` and all sub-folders to the `/wp-content/plugins/` directory.
-1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Done.
-1. Example RSS feed URL: `http://demo.admidio.org/adm_program/modules/dates/rss_dates.php`.
+= Widget options =
+* **Title**<br />
+Widget title.
+
+* **Enter the event RSS feed URL here**<br />
+URL for file `rss_dates.php` of your Admidio installation. Typically like this: `http://YOUR_DOMAIN_HERE/adm_program/modules/dates/rss_dates.php`.<br /><br />
+*Examples*<br />
+URL in Admidio demo (English version): `http://www.admidio.org/demo_en/adm_program/modules/dates/rss_dates.php`,<br />
+URL in Admidio demo (German version): `http://demo.admidio.org/adm_program/modules/dates/rss_dates.php`.
+
+* **Date format setting in Admidio**<br />
+This option has to be set equal to the date format setting in Admidio (see Administration - Organisation preferences - Organisation and regional preferences). *Hint: The time format setting in Admidio has to be set to either H:i or h:i.*
+
+* **How many events would you like to display**<br />
+Maximum number of events displayed.
+
+* **Display event title with date**<br />
+If checked, the event date is appended to the event title. Especially useful for collapsed view where otherwise only the event title is shown.
+
+* **Date font color**<br />
+Here you can select a font color for the event date that is different from the event title color.
+
+* **Start with expanded view**<br />
+If checked, then the Widget displays all event data after a page reload.
 
 == Screenshots ==
+1. Widget options on Widget admin screen.
+2. Example for collapsed view with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/).
+3. Expanded view with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/).
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets 
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png` 
-(or jpg, jpeg, gif).
-2. This is the second screen shot
 
 == Frequently Asked Questions ==
 
-= What does this plugin actually do? =
-
-(Answer) 
+- Describe what Admidio can do.
+- Explain error messages here.
 
 == Changelog ==
 
 = 0.4.0 =
-* Addition of url scheme *http://* to RSS feed url if necessary.
+* Addition of url scheme *http://* to RSS feed url if it has been omitted.
+* Readme.txt updated.
+* Screen shots added to folder *assets*.
 * Tests done with the currently most popular WordPress themes: Customizr 3.1.17, Twenty Thirteen 1.2, Twenty Fourteen 1.1 worked out of the box. Eighties 1.1.0, Los 1.1.0, Oxygen 0.5.4, Twenty Ten 1.6, Twenty Eleven 1.8, Twenty Twelve 1.4 worked after installation of Plugin *Genericon'd*.
 
 = 0.3.9 =
@@ -82,7 +101,4 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 == Upgrade Notice ==
 
 = 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
+This is the first released version. Please update, if you have used a previous version.
