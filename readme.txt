@@ -8,56 +8,84 @@ Stable tag: 0.4.0
 License: GPLv3 or later
 License URI:  http://www.gnu.org/licenses/gpl-3.0
 
-A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
+A Widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
 
 == Description ==
 [Admidio](http://sourceforge.net/projects/admidio/ "Admidio at SourceForge") is a free PHP based membership management system for organizations and groups. It also offers an event manager module to plan date, time and place of events.
 
-**Admidio Events** displays such event data in the widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events shown is configurable. Also the widget provides a collapsed (event name, optional: date) or expanded (all event data) view which can be toggled between. The data from Admidio to WordPress is transferred via RSS.
+**Admidio Events** displays such event data in the Widget area of a WordPress page, for example the home page of the sports club the members belong to. The number of upcoming events shown is configurable. Also the Widget provides a collapsed (event name, optional: date) or expanded (all event data) view which can be toggled between. The data from Admidio to WordPress is transferred via RSS.
 
-Please note that the free icon font *Genericons* has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (for example [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/) or [Twenty Fourteen](http://wordpress.org/themes/twentyfourteen/) or by using a Plugin that adds *Genericons* to your theme (for example [Genericon'd](http://wordpress.org/plugins/genericond/)).
+Please note that the free icon font [Genericons](http://genericons.com) has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (for example [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/) or [Twenty Fourteen](http://wordpress.org/themes/twentyfourteen/) or by using a Plugin that adds *Genericons* to your theme (for example [Genericon'd](http://wordpress.org/plugins/genericond/)).
 
 == Installation ==
 
+= Plugin Installation =
 Detailed installation instructions can be found in the [WordPress Codex](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
 
-= Widget options =
+= Widget Options =
 * **Title**<br />
 Widget title.
 
 * **Enter the event RSS feed URL here**<br />
-URL for file `rss_dates.php` of your Admidio installation. Typically like this: `http://YOUR_DOMAIN_HERE/adm_program/modules/dates/rss_dates.php`.<br /><br />
+URL to file `rss_dates.php` of your Admidio installation, like so: `http://YOUR_DOMAIN_HERE/adm_program/modules/dates/rss_dates.php`.<br /><br />
 *Examples*<br />
-URL in Admidio demo (English version): `http://www.admidio.org/demo_en/adm_program/modules/dates/rss_dates.php`,<br />
-URL in Admidio demo (German version): `http://demo.admidio.org/adm_program/modules/dates/rss_dates.php`.
+URL for English Admidio demo server: `http://www.admidio.org/demo_en/adm_program/modules/dates/rss_dates.php`,<br />
+URL for German Admidio demo server: `http://demo.admidio.org/adm_program/modules/dates/rss_dates.php`.
 
 * **Date format setting in Admidio**<br />
-This option has to be set equal to the date format setting in Admidio (see Administration - Organisation preferences - Organisation and regional preferences). *Hint: The time format setting in Admidio has to be set to either H:i or h:i.*
+This option has to be set to the date format setting in Admidio (see Administration - Organisation preferences - Organisation and regional preferences). *Hint: As possible, the time format setting in Admidio should be set to either H:i or h:i.*
 
 * **How many events would you like to display**<br />
 Maximum number of events displayed.
 
 * **Display event title with date**<br />
-If checked, the event date is appended to the event title. Especially useful for collapsed view where otherwise only the event title is shown.
+If checked, the event date is appended to the event title. Especially useful for collapsed view as otherwise only the event title is shown.
 
 * **Date font color**<br />
 Here you can select a font color for the event date that is different from the event title color.
 
 * **Start with expanded view**<br />
-If checked, then the Widget displays all event data after a page reload.
-
-== Screenshots ==
-1. Widget options on Widget admin screen.
-2. Example for collapsed view with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/).
-3. Expanded view with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/).
-
+If checked, the Widget displays all event data after a page reload.
 
 == Frequently Asked Questions ==
 
-- Describe what Admidio can do.
-- Explain error messages here.
+= How can I toggle between collapsed and expanded view? =
+Just click on the Widget title.
+
+= Is there a possibility to play around with Admidio without installing it before? =
+There are Admidio demo servers available. Here you can check, if Admidio's features fit to your needs. You can choose between an [English Admidio demo server](http://www.admidio.org/demo_en/) or a [German Admidio demo server](http://demo.admidio.org/).
+
+= I can toggle between views. But there is a strange box showing up in the upper right of the Widget. What's that? =
+Very likely this is because the free icon font [Genericons](http://genericons.com) is missing. This font has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (for example [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/) or [Twenty Fourteen](http://wordpress.org/themes/twentyfourteen/) or by using a Plugin that adds *Genericons* to your theme (for example [Genericon'd](http://wordpress.org/plugins/genericond/)).
+
+= The Widget doesn't display event data but a message. What does it mean? =
+* **Message 1**<br />
+Explanation 1
+
+* **Message 2**<br />
+Explanation 2
+
+* **Message 3**<br />
+Explanation 3
+
+= The Widget cannot toggle between views. If I click on the Widget title, nothing happens. =
+This is because some themes use non-standard css class names. Unfortunately it cannot get fixed easily. Try one of the currently most popular themes that have been tested with *Admidio Events*: Customizr 3.1.17, Twenty Thirteen 1.2, Twenty Fourteen 1.1 worked out of the box. Eighties 1.1.0, Los 1.1.0, Oxygen 0.5.4, Twenty Ten 1.6, Twenty Eleven 1.8, Twenty Twelve 1.4 worked after installation of Plugin [Genericon'd](http://wordpress.org/plugins/genericond/).
+
+= What will happen if I don't set the time format in Admidio as suggested (H:i or h:i)? =
+The worst thing that could happen if you choose a different time format, is a wrong order for events on the same day. Normally *Admidio Events* shows the upcoming events in chronological order. The next event will be on top of the list. For most of the events only the event date is important for sorting. But if there is more than one event on the same day, the event time is used to put the events in correct order. If the time cannot be read due to an unknown time format, Admidio uses *00:00* as the event time.
+
+= Where can I find more information about Admidio? =
+You can find an English page about [Admidio on SourceForge](http://sourceforge.net/projects/admidio/). Or use the [German home page of Admidio](http://admidio.de/).
+
+== Screenshots ==
+1. Widget options on Widget admin screen.
+2. Collapsed view on front end screen with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/). Clicking on Widget title toggles between views.
+3. Expanded view on front end screen with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/). Clicking on Widget title toggles between views.
 
 == Changelog ==
+
+= 0.4.1 =
+* Further improvement for file readme.txt.
 
 = 0.4.0 =
 * Addition of url scheme *http://* to RSS feed url if it has been omitted.
@@ -89,7 +117,7 @@ If checked, then the Widget displays all event data after a page reload.
 * Restricted usable html tags in description to break tag.
 
 = 0.3.4 =
-* Added widget option for initial view.
+* Added Widget option for initial view.
 
 = 0.3.3 =
 * Improved expanded/collapsed view button.
