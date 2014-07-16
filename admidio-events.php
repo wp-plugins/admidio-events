@@ -4,7 +4,7 @@
  * Plugin Name: Admidio Events
  * Plugin URI:  http://wordpress.org/plugins/admidio-events/
  * Description: A widget that displays event data from the online membership management system <a href="http://sourceforge.net/projects/admidio/">Admidio</a>.
- * Version:     0.4.0
+ * Version:     0.4.1
  * Author:      Ulrik Schoth
  * Author URI:  http://profiles.wordpress.org/fiwad/
  * Text Domain: admidio-events
