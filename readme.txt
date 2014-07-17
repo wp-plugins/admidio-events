@@ -4,7 +4,7 @@ Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster-english/
 Tags: admidio, events, membership, rss, widget
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: trunk
+Stable tag: 0.4.2
 License: GPLv3 or later
 License URI:  http://www.gnu.org/licenses/gpl-3.0/
 
@@ -81,7 +81,7 @@ The worst thing that could happen if you choose a different time format, is a wr
 The Widget is used on the [homepage of my sports club](http://fechten-in-waldkirch.de/). This page is in German but I'm pretty sure you'll find the Widget anyway.
 
 = Which languages are supported? =
-Admidio can be installed in five different languages: Danish, Dutch, English, French, German and Italian. Admidio Events is currently available in English and German. If you like to help with the translation to another language, please send me a note.
+Admidio can be installed in five different languages: Danish, Dutch, English, French, German and Italian. Admidio Events is currently available in English and German. If you like to help with the translation to another language, please [send me a note](http://fechten-in-waldkirch.de/kontakt/webmaster-english/).
 
 == Screenshots ==
 1. Widget settings on Widget admin screen.
