@@ -4,7 +4,7 @@ Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster-english/
 Tags: admidio, events, membership, rss, widget
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 0.4.2
+Stable tag: 1.0.0
 License: GPLv3 or later
 License URI:  http://www.gnu.org/licenses/gpl-3.0/
 
@@ -85,10 +85,13 @@ Admidio can be installed in five different languages: Danish, Dutch, English, Fr
 
 == Screenshots ==
 1. Widget settings on Widget admin screen.
-2. Collapsed view on front end screen with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/). Clicking on Widget title toggles between views.
-3. Expanded view on front end screen with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/). Clicking on Widget title toggles between views.
+2. Collapsed view on front end screen with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/). Clicking on Widget title switches to expanded view.
+3. Expanded view on front end screen with theme [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/). Clicking on Widget title switches to collapsed view.
 
 == Changelog ==
+
+= 1.0.0 =
+* First released version.
 
 = 0.4.2 =
 * Further improvements for file readme.txt (part II).
@@ -137,5 +140,5 @@ Admidio can be installed in five different languages: Danish, Dutch, English, Fr
 
 == Upgrade Notice ==
 
-= 1.0 =
+= 1.0.0 =
 This is the first released version. Please update, if you have used a previous version.
