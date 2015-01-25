@@ -3,7 +3,7 @@ Contributors: fiwad
 Donate link: http://fechten-in-waldkirch.de/kontakt/webmaster-english/
 Tags: admidio, events, membership, rss, widget
 Requires at least: 3.6
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 1.0.0
 License: GPLv3 or later
 License URI:  http://www.gnu.org/licenses/gpl-3.0/
@@ -17,6 +17,7 @@ A Widget that displays event data from the online membership management system <
 
 Please note that the free icon font [Genericons](http://genericons.com/) has to be available with your WordPress installation. Either by using a theme that includes *Genericons* out of the box (for example [Twenty Thirteen](http://wordpress.org/themes/twentythirteen/) or [Twenty Fourteen](http://wordpress.org/themes/twentyfourteen/)) or by using a Plugin that adds *Genericons* to your theme (for example [Genericon'd](http://wordpress.org/plugins/genericond/)).
 
+This Plugin needs PHP version 5.3 or higher.
 == Installation ==
 
 = Plugin Installation =
